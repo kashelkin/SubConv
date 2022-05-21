@@ -11,21 +11,51 @@ namespace SubConv.Providers.Ass
             while (reader.ReadLine() is { } line && !line.StartsWith("[Events]", StringComparison.Ordinal))
             { }
 
+            Dictionary<string, int>? format = null;
+
+            while (reader.ReadLine() is { } line)
+            {
+                if (!line.StartsWith("Format:", StringComparison.Ordinal)) continue;
+                format = CreateFormat(line);
+                break;
+            }
+
             while (reader.ReadLine() is { } line)
             {
                 if (line.StartsWith("Dialogue:", StringComparison.Ordinal))
-                    yield return CreateEntry(line);
+#pragma warning disable CS8604 // Possible null reference argument.
+                    // At this point format will have value.
+                    yield return CreateEntry(line, format);
+#pragma warning restore CS8604 // Possible null reference argument.
             }
         }
 
-        public static SubtitleEntry CreateEntry(string line)
+        private static Dictionary<string, int> CreateFormat(string line)
         {
-            var destyled = Regex.Replace(line, @"\{[^}]*\}", "");
-            var splitLine = destyled.Split(',', 10);
-            var beginTime = TimeSpan.ParseExact(splitLine[1], @"h\:mm\:ss\.ff", CultureInfo.InvariantCulture);
-            var endTime = TimeSpan.ParseExact(splitLine[2], @"h\:mm\:ss\.ff", CultureInfo.InvariantCulture);
-            var text = splitLine[9].Replace("\\N", Environment.NewLine, StringComparison.Ordinal);
-            return new SubtitleEntry(beginTime, endTime, text);
+            return line.Split(':', 2, StringSplitOptions.TrimEntries)[1]
+                .Split(',', StringSplitOptions.TrimEntries)
+                .Select((x, i) => new { Key = x, Value = i })
+                .ToDictionary(x => x.Key, x => x.Value);
         }
+
+        private static SubtitleEntry CreateEntry(string line, IReadOnlyDictionary<string, int> format)
+        {
+            var splitLine = line.Split(':', 2, StringSplitOptions.TrimEntries)[1]
+                .Split(',', format.Count, StringSplitOptions.TrimEntries);
+
+            var startTime = ParseTimeSpan(splitLine[format["Start"]]);
+            var endTime = ParseTimeSpan(splitLine[format["End"]]);
+            var content = RemoveAssStyle(splitLine[format["Text"]]);
+            var style = splitLine[format["Style"]];
+
+            return new SubtitleEntry(startTime, endTime, content, style);
+        }
+
+        private static string RemoveAssStyle(string text) =>
+            Regex.Replace(text, @"\{[^}]*\}", "")
+                .Replace("\\N", Environment.NewLine, StringComparison.Ordinal);
+
+        private static TimeSpan ParseTimeSpan(string value) =>
+            TimeSpan.ParseExact(value, @"h\:mm\:ss\.ff", CultureInfo.InvariantCulture);
     }
 }

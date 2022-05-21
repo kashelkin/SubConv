@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SubConv": {
+      "commandName": "Project",
+      "commandLineArgs": "assgood\\*.ass -t enclose:Names,SmallNames;[;] merge:*;Names;SmallNames"
+    }
+  }
+}

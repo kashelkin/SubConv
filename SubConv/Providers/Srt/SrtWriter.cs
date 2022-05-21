@@ -1,7 +1,7 @@
 ﻿using SubConv.Data;
-using SubConv.Processing;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SubConv.Providers.Srt
 {
@@ -9,12 +9,15 @@ namespace SubConv.Providers.Srt
     {
         public static void Write(TextWriter writer, IEnumerable<SubtitleEntry> entries)
         {
-            foreach (var entry in SubtitleMerge.Merge(entries).Select((e, i) => new {Entry = e, Number = i + 1}))
+            foreach (var entry in entries.Select((e, i) => new {Entry = e, Number = i + 1}))
             {
                 if (entry.Number > 1)
+                {
                     writer.WriteLine();
+                    writer.WriteLine();
+                }
 
-                writer.WriteLine(SerializeEntry(entry.Entry, entry.Number));
+                writer.Write(SerializeEntry(entry.Entry, entry.Number));
             }
         }
 
@@ -25,9 +28,14 @@ namespace SubConv.Providers.Srt
             var sb = new StringBuilder()
                 .AppendLine(i.ToString(CultureInfo.InvariantCulture))
                 .AppendLine(CultureInfo.InvariantCulture, $"{sTime} --> {eTime}")
-                .AppendLine(entry.Content);
+                .Append(RemoveEmptyLines(entry.Content));
 
-                return sb.ToString();
+            return sb.ToString();
         }
+
+        private static string RemoveEmptyLines(string value) =>
+            Regex.Replace(value,
+                "(" + Regex.Escape(Environment.NewLine) + ")" + "{2,}",
+                Environment.NewLine);
     }
 }

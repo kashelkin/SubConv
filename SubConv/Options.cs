@@ -10,10 +10,14 @@ namespace SubConv
         [Value(1, Required = false, MetaName = "OutputPath", HelpText = "Output path")]
         public string? OutputPath { get; }
 
-        public Options(string inputPath, string? outputPath)
+        [Option('t', HelpText = "Transform")]
+        public IReadOnlyList<TransformOptions> Transforms { get; }
+
+        public Options(string inputPath, string? outputPath, IReadOnlyList<TransformOptions> transforms)
         {
             InputPath = inputPath;
             OutputPath = outputPath;
+            Transforms = transforms ?? Array.Empty<TransformOptions>();
         }
     }
 }

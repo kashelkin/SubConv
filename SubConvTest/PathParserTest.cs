@@ -1,5 +1,4 @@
-﻿using System.IO;
-using SubConv;
+﻿using SubConv;
 using Xunit;
 
 namespace SubConvTest
@@ -14,11 +13,9 @@ namespace SubConvTest
         [InlineData(@"d:\subtitles\episode 01.ass", @"d:\subtitles\converted", "srt", @"d:\subtitles\converted\episode 01.srt")]
         public void Test(string inputFile, string? outputPath, string extension, string expected)
         {
-            var result = PathParser.GenerateOutputFileName(FixSlash(inputFile), FixSlash(outputPath), extension);
+            var result = PathParser.GenerateOutputFileName(inputFile.FixSlash(), outputPath.FixSlash(), extension);
 
-            Assert.Equal(expected, result);
+            Assert.Equal(expected.FixSlash(), result);
         }
-
-        private static string? FixSlash(string? path) => path?.Replace('\\', Path.DirectorySeparatorChar);
     }
 }

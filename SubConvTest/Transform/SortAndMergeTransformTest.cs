@@ -1,19 +1,19 @@
 ﻿using SubConv.Data;
-using SubConv.Processing;
+using SubConv.Transform;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace SubConvTest.Processing
+namespace SubConvTest.Transform
 {
-    public class SubtitleMergeTest
+    public class SortAndMergeTransformTest : BaseTransformTest
     {
         [Fact]
         public void Merge_Single_Entry()
         {
             var entry = new SubtitleEntry(TimeSpan.MinValue, TimeSpan.MaxValue, "Content");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
                 .WithStart(TimeSpan.MinValue)
@@ -34,7 +34,7 @@ namespace SubConvTest.Processing
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry1, entry2));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -62,7 +62,7 @@ namespace SubConvTest.Processing
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry1, entry2));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -86,7 +86,7 @@ namespace SubConvTest.Processing
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry1, entry2));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -110,7 +110,7 @@ namespace SubConvTest.Processing
                 new TimeSpan(0, 4, 0),
                 "Entry2");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry1, entry2));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                 .WithStart(0, 1, 0)
@@ -119,7 +119,7 @@ namespace SubConvTest.Processing
         }
 
         [Fact]
-        public void Reverse_Entries_Sorted_Properly()
+        public void Default_Comparer_Sorts_By_StartTime()
         {
             var entry1 = new SubtitleEntry(
                 new TimeSpan(0, 1, 0), 
@@ -130,7 +130,7 @@ namespace SubConvTest.Processing
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry2, entry1));
+            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry2, entry1));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -147,18 +147,21 @@ namespace SubConvTest.Processing
         }
 
         [Fact]
-        public void Title_Always_Below()
+        public void Custom_Comparer_Applies()
         {
             var entry1 = new SubtitleEntry(
                 new TimeSpan(0, 1, 0), 
                 new TimeSpan(0, 7, 0),
-                "[Title Entry]");
+                "[Title Entry]",
+                "Title");
             var entry2 = new SubtitleEntry(
                 new TimeSpan(0, 4, 0),
                 new TimeSpan(0, 7, 0),
-                "Entry2");
+                "Entry2",
+                "Default");
 
-            var result = SubtitleMerge.Merge(ToEnumerable(entry1, entry2));
+            var sut = new SortAndMergeTransform(new StyleSubtitleComparer(new[] { "*", "Title" }));
+            var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -173,11 +176,9 @@ namespace SubConvTest.Processing
         [Fact]
         public void Zero_Entries()
         {
-            var result = SubtitleMerge.Merge(new SubtitleEntry[] { });
+            var result = new SortAndMergeTransform().Transform(new SubtitleEntry[] { });
 
             Assert.Empty(result);
         }
-
-        private static IEnumerable<T> ToEnumerable<T>(params T[] data) => data;
     }
 }
