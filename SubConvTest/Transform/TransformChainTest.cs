@@ -17,7 +17,6 @@ namespace SubConvTest.Transform
                 "Default");
 
             var sut = new TransformChain(Array.Empty<ISubtitleTransform>());
-
             var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
@@ -43,7 +42,6 @@ namespace SubConvTest.Transform
             };
 
             var sut = new TransformChain(transforms);
-
             var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e

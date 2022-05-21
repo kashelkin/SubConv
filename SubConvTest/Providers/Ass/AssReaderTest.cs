@@ -27,12 +27,12 @@ Dialogue: 0,0:11:52.90,0:11:57.10,Colon,,0000,0000,0000,,String with : should pa
         }
 
         [Fact]
-        public void Read_Entry_With_Coma()
+        public void Read_Entry_With_Comma()
         {
             WithStreamReader(@"
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:11:52.90,0:11:57.10,Coma,,0000,0000,0000,,String with , should pass.",
+Dialogue: 0,0:11:52.90,0:11:57.10,Comma,,0000,0000,0000,,String with , should pass.",
             sr =>
             {
                 var result = AssReader.Read(sr);
@@ -41,7 +41,7 @@ Dialogue: 0,0:11:52.90,0:11:57.10,Coma,,0000,0000,0000,,String with , should pas
                     .WithStart(0, 11, 52, 900)
                     .WithEnd(0, 11, 57, 100)
                     .WithContent("String with , should pass.")
-                    .WithStyle("Coma"));
+                    .WithStyle("Comma"));
 
             });
         }

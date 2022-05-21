@@ -60,6 +60,5 @@ namespace SubConvTest
         public static string EnvNewLine(this string it) => it.Replace("\n", Environment.NewLine);
 
         public static string? FixSlash(this string? it) => it?.Replace('\\', Path.DirectorySeparatorChar);
-
     }
 }

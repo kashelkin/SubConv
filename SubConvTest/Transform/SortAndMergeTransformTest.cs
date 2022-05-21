@@ -1,7 +1,6 @@
 ﻿using SubConv.Data;
 using SubConv.Transform;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace SubConvTest.Transform
@@ -13,7 +12,8 @@ namespace SubConvTest.Transform
         {
             var entry = new SubtitleEntry(TimeSpan.MinValue, TimeSpan.MaxValue, "Content");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
                 .WithStart(TimeSpan.MinValue)
@@ -34,7 +34,8 @@ namespace SubConvTest.Transform
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -62,7 +63,8 @@ namespace SubConvTest.Transform
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -86,7 +88,8 @@ namespace SubConvTest.Transform
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -110,7 +113,8 @@ namespace SubConvTest.Transform
                 new TimeSpan(0, 4, 0),
                 "Entry2");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry1, entry2));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
                 .WithStart(0, 1, 0)
@@ -130,7 +134,8 @@ namespace SubConvTest.Transform
                 new TimeSpan(0, 7, 0),
                 "Entry2");
 
-            var result = new SortAndMergeTransform().Transform(ToEnumerable(entry2, entry1));
+            var sut = new SortAndMergeTransform();
+            var result = sut.Transform(ToEnumerable(entry2, entry1));
 
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
@@ -166,11 +171,11 @@ namespace SubConvTest.Transform
             Assert.Collection(result, e => e
                     .WithStart(0, 1, 0)
                     .WithEnd(0, 4, 0)
-                    .WithContent("[Title Entry]"),
+                    .WithContent("Title Entry"),
                 e => e
                     .WithStart(0, 4, 0)
                     .WithEnd(0, 7, 0)
-                    .WithContent("Entry2\n[Title Entry]".EnvNewLine()));
+                    .WithContent("Entry2\nTitle Entry".EnvNewLine()));
         }
 
         [Fact]
