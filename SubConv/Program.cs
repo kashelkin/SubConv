@@ -6,6 +6,9 @@ using SubConv.Transform;
 using System.Text;
 
 var transformBuilder = new TransformBuilder();
+transformBuilder.RegisterFor("k",
+    o => o.Count == 0,
+    _ => new KaraokeTransform());
 transformBuilder.RegisterFor("m",
     o=> o.Count == 0,
     _ => new SortAndMergeTransform());
