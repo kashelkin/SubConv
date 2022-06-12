@@ -23,15 +23,16 @@ namespace SubConv.Providers.Srt
 
         private static string SerializeEntry(SubtitleEntry entry, int i)
         {
-            var sTime = entry.StartTime.ToString(@"hh\:mm\:ss\,fff", CultureInfo.InvariantCulture);
-            var eTime = entry.EndTime.ToString(@"hh\:mm\:ss\,fff", CultureInfo.InvariantCulture);
             var sb = new StringBuilder()
                 .AppendLine(i.ToString(CultureInfo.InvariantCulture))
-                .AppendLine(CultureInfo.InvariantCulture, $"{sTime} --> {eTime}")
+                .AppendLine(CultureInfo.InvariantCulture, $"{RenderTime(entry.StartTime)} --> {RenderTime(entry.EndTime)}")
                 .Append(RemoveEmptyLines(entry.Content));
 
             return sb.ToString();
         }
+
+        private static string RenderTime(TimeSpan time) =>
+            time.ToString(@"hh\:mm\:ss\,fff", CultureInfo.InvariantCulture);
 
         private static string RemoveEmptyLines(string value) =>
             Regex.Replace(value,
