@@ -120,7 +120,7 @@ namespace SubConvTest.Transform
         }
 
         [Fact]
-        public void Repeating_Letters()
+        public void Repeating_Phrases_Cleanup()
         {
             var sut = new KaraokeTransform();
             var karaoke = ToEnumerable(
@@ -139,6 +139,44 @@ namespace SubConvTest.Transform
                 .WithStart(0, 1, 10)
                 .WithEnd(0, 1, 20)
                 .HasContent("abc."));
+        }
+
+        [Fact]
+        public void Transform_By_Style()
+        {
+            var sut = new KaraokeTransform(new[] {"karaoke"});
+            var karaoke = ToEnumerable(
+                new SubtitleEntry(new TimeSpan(0, 1, 0), new TimeSpan(0, 1, 10), "a", "karaoke"),
+                new SubtitleEntry(new TimeSpan(0, 1, 3), new TimeSpan(0, 1, 10), "n", "karaoke"),
+                new SubtitleEntry(new TimeSpan(0, 1, 6), new TimeSpan(0, 1, 10), "d", "karaoke"),
+                new SubtitleEntry(new TimeSpan(0, 1, 1), new TimeSpan(0, 1, 10), "n", "song"),
+                new SubtitleEntry(new TimeSpan(0, 1, 4), new TimeSpan(0, 1, 10), "o", "song"),
+                new SubtitleEntry(new TimeSpan(0, 1, 7), new TimeSpan(0, 1, 10), "w", "song"));
+
+            var result = sut.Transform(karaoke)
+                .OrderBy(e => e.StyleName)
+                .ThenBy(e => e.StartTime);
+
+            Assert.Collection(result, e => e
+                    .WithStart(0, 1, 0)
+                    .WithEnd(0, 1, 10)
+                    .HasContent("and")
+                    .WithStyle("karaoke"),
+                e => e
+                    .WithStart(0, 1, 1)
+                    .WithEnd(0, 1, 10)
+                    .HasContent("n")
+                    .WithStyle("song"),
+                e => e
+                    .WithStart(0, 1, 4)
+                    .WithEnd(0, 1, 10)
+                    .HasContent("o")
+                    .WithStyle("song"),
+                e => e
+                    .WithStart(0, 1, 7)
+                    .WithEnd(0, 1, 10)
+                    .HasContent("w")
+                    .WithStyle("song"));
         }
     }
 }

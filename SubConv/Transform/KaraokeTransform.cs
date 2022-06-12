@@ -6,10 +6,31 @@ namespace SubConv.Transform
 {
     public class KaraokeTransform : ISubtitleTransform
     {
+        private readonly IReadOnlyList<string>? _styles;
+
+        public KaraokeTransform()
+        {}
+
+        public KaraokeTransform(IReadOnlyList<string> styles)
+        {
+            _styles = styles;
+        }
+
         public IEnumerable<SubtitleEntry> Transform(IEnumerable<SubtitleEntry> entries)
         {
-            return entries.GroupBy(e => $"{e.StyleName},{e.EndTime}")
-                .Select(Merge);
+            var allEntries = entries.ToList();
+
+            var transform = _styles != null 
+                ? allEntries.Where(e => _styles.Any(s => s == e.StyleName)) 
+                : allEntries;
+
+            var ignore = _styles != null
+                ? allEntries.Where(e => _styles.All(s => s != e.StyleName))
+                : Array.Empty<SubtitleEntry>();
+
+            return transform.GroupBy(e => $"{e.StyleName},{e.EndTime}")
+                .Select(Merge)
+                .Concat(ignore);
         }
 
         private static SubtitleEntry Merge(IGrouping<string, SubtitleEntry> group)
