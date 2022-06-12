@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SubConvTest.Transform
 {
-    public class EncloseContentTransformTest : BaseTransformTest
+    public class WrapContentTransformTest : BaseTransformTest
     {
         [Theory]
         [InlineData("Default entry", "Default", "Default entry")]
@@ -20,7 +20,7 @@ namespace SubConvTest.Transform
                 content,
                 style);
 
-            var sut = new EncloseContentTransform("Names", "[", "]");
+            var sut = new WrapContentTransform("Names", "[", "]");
 
             var result = sut.Transform(ToEnumerable(entry));
 
@@ -44,7 +44,7 @@ namespace SubConvTest.Transform
                 content,
                 style);
 
-            var sut = new EncloseContentTransform("Names,SmallNames", "[", "]");
+            var sut = new WrapContentTransform("Names,SmallNames", "[", "]");
 
             var result = sut.Transform(ToEnumerable(entry));
 
@@ -68,7 +68,7 @@ namespace SubConvTest.Transform
                 content,
                 style);
 
-            var sut = new EncloseContentTransform("*", "[", "]");
+            var sut = new WrapContentTransform("*", "[", "]");
 
             var result = sut.Transform(ToEnumerable(entry));
 
@@ -92,7 +92,7 @@ namespace SubConvTest.Transform
                 content,
                 style);
 
-            var sut = new EncloseContentTransform("Default", "[", "]");
+            var sut = new WrapContentTransform("Default", "[", "]");
 
             var result = sut.Transform(ToEnumerable(entry));
 

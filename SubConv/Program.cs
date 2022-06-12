@@ -12,9 +12,9 @@ transformBuilder.RegisterFor("merge",
 transformBuilder.RegisterFor("merge",
     o => o.Count > 0,
     o => new SortAndMergeTransform(new StyleSubtitleComparer(o)));
-transformBuilder.RegisterFor("enclose",
+transformBuilder.RegisterFor("wrap",
     o => o.Count == 3,
-    o => new EncloseContentTransform(o[0], o[1], o[2]));
+    o => new WrapContentTransform(o[0], o[1], o[2]));
 
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed(o => Convert(o.InputPath, o.OutputPath, transformBuilder.Build(o.Transforms)));

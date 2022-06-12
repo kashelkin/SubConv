@@ -37,8 +37,8 @@ namespace SubConvTest.Transform
 
             var transforms = new[]
             {
-                new EncloseContentTransform("Default", "[", "]"),
-                new EncloseContentTransform("Default", "{", "}")
+                new WrapContentTransform("Default", "[", "]"),
+                new WrapContentTransform("Default", "{", "}")
             };
 
             var sut = new TransformChain(transforms);

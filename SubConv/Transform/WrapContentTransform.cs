@@ -3,13 +3,13 @@ using SubConv.Data;
 
 namespace SubConv.Transform
 {
-    public class EncloseContentTransform : ISubtitleTransform
+    public class WrapContentTransform : ISubtitleTransform
     {
         private readonly IReadOnlyDictionary<string, int> _styles;
         private readonly string _start;
         private readonly string _end;
 
-        public EncloseContentTransform(string styles, string start, string end)
+        public WrapContentTransform(string styles, string start, string end)
         {
             _styles = styles.Split(',')
                 .ToDictionary(x => x, x => 0);
