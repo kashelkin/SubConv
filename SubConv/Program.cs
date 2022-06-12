@@ -6,13 +6,13 @@ using SubConv.Transform;
 using System.Text;
 
 var transformBuilder = new TransformBuilder();
-transformBuilder.RegisterFor("merge",
+transformBuilder.RegisterFor("m",
     o=> o.Count == 0,
     _ => new SortAndMergeTransform());
-transformBuilder.RegisterFor("merge",
+transformBuilder.RegisterFor("m",
     o => o.Count > 0,
     o => new SortAndMergeTransform(new StyleSubtitleComparer(o)));
-transformBuilder.RegisterFor("wrap",
+transformBuilder.RegisterFor("w",
     o => o.Count == 3,
     o => new WrapContentTransform(o[0], o[1], o[2]));
 
