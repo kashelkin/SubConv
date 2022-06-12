@@ -99,6 +99,26 @@ Dialogue: 0,0:12:00.30,0:12:01.97,Speech,,0000,0000,0000,,defeat the Empire.\NTh
             });
         }
 
+        [Fact]
+        public void Reads_Position()
+        {
+            WithStreamReader(@"
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 2,0:04:49.79,0:04:57.65,Jibun Wo,,0,0,0,fx,{\fad(0,0)\shad0\bord3\an5\pos(322.5,57)\fs0\frz360\blur15\1c&H00008F&\alpha&H0&\t(0,500,\fs0\blur0\fr0\1c&HFFFFFF&)\t(400,500,\alpha&H0&)\3c&H31358D&}Text",
+                sr =>
+                {
+                    var result = AssReader.Read(sr);
+
+                    Assert.Collection(result, e => e
+                        .WithStart(0, 4, 49, 790)
+                        .WithEnd(0, 4, 57, 650)
+                        .HasContent("Text")
+                        .HasPosition(322.5M, 57)
+                    );
+                });
+        }
+
         private static void WithStreamReader(string script, Action<StreamReader> action)
         {
             using var memoryStream = new MemoryStream();

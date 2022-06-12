@@ -45,7 +45,7 @@ namespace SubConvTest
             return entry;
         }
 
-        public static SubtitleEntry WithContent(this SubtitleEntry entry, string content)
+        public static SubtitleEntry HasContent(this SubtitleEntry entry, string content)
         {
             Assert.Equal(content, entry.Content);
             return entry;
@@ -54,6 +54,14 @@ namespace SubConvTest
         public static SubtitleEntry WithStyle(this SubtitleEntry entry, string? style)
         {
             Assert.Equal(style, entry.StyleName);
+            return entry;
+        }
+
+        public static SubtitleEntry HasPosition(this SubtitleEntry entry, decimal x, decimal y)
+        {
+            Assert.NotNull(entry.Position);
+            Assert.Equal(x, entry.Position.X);
+            Assert.Equal(y, entry.Position.Y);
             return entry;
         }
 

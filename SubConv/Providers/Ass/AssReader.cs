@@ -47,8 +47,9 @@ namespace SubConv.Providers.Ass
             var endTime = ParseTimeSpan(splitLine[format["End"]]);
             var content = RemoveAssStyle(splitLine[format["Text"]]);
             var style = splitLine[format["Style"]];
+            var position = ParsePosition(splitLine[format["Text"]]);
 
-            return new SubtitleEntry(startTime, endTime, content, style);
+            return new SubtitleEntry(startTime, endTime, content, style, position);
         }
 
         private static string RemoveAssStyle(string text) =>
@@ -57,5 +58,16 @@ namespace SubConv.Providers.Ass
 
         private static TimeSpan ParseTimeSpan(string value) =>
             TimeSpan.ParseExact(value, @"h\:mm\:ss\.ff", CultureInfo.InvariantCulture);
+
+        private static Position? ParsePosition(string value)
+        {
+            var matches = Regex.Matches(value, @"{.*\\(pos\((?<x>[\d\.]+),(?<y>[\d\.]+))\).*}");
+            if (matches.Count == 0) return null;
+            var match = matches.First();
+            var x = decimal.Parse(match.Groups["x"].Value, CultureInfo.InvariantCulture);
+            var y = decimal.Parse(match.Groups["y"].Value, CultureInfo.InvariantCulture);
+
+            return new Position(x, y);
+        }
     }
 }
