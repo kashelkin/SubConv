@@ -1,4 +1,8 @@
-﻿namespace SubConv.Transform.Internal
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SubConv.Transform.Internal
 {
     internal static class Helpers
     {

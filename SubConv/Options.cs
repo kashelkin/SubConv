@@ -1,5 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CommandLine;
+﻿using CommandLine;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SubConv
 {

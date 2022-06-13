@@ -3,6 +3,7 @@ using SubConv;
 using SubConv.Providers.Ass;
 using SubConv.Providers.Srt;
 using SubConv.Transform;
+using System.IO;
 using System.Text;
 
 var transformBuilder = new TransformBuilder();

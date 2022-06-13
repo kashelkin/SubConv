@@ -1,4 +1,6 @@
-﻿namespace SubConv.Transform.Internal
+﻿using System;
+
+namespace SubConv.Transform.Internal
 {
     internal class TimeInterval
     {

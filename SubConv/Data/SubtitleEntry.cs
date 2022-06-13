@@ -1,4 +1,6 @@
-﻿namespace SubConv.Data
+﻿using System;
+
+namespace SubConv.Data
 {
     public class SubtitleEntry
     {
