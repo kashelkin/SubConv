@@ -1,6 +1,5 @@
 ﻿using SubConv.Data;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Xunit;
 
@@ -8,38 +7,38 @@ namespace SubConvTest
 {
     internal static class Helpers
     {
-        public static SubtitleEntry WithStart(this SubtitleEntry entry, int hours, int minutes, int seconds)
+        public static SubtitleEntry HasStart(this SubtitleEntry entry, int hours, int minutes, int seconds)
         {
             Assert.Equal(new TimeSpan(hours, minutes, seconds), entry.StartTime);
             return entry;
         }
 
-        public static SubtitleEntry WithStart(this SubtitleEntry entry, TimeSpan timeSpan)
+        public static SubtitleEntry HasStart(this SubtitleEntry entry, TimeSpan timeSpan)
         {
             Assert.Equal(timeSpan, entry.StartTime);
             return entry;
         }
 
-        public static SubtitleEntry WithStart(this SubtitleEntry entry, int hours, int minutes, int seconds,
+        public static SubtitleEntry HasStart(this SubtitleEntry entry, int hours, int minutes, int seconds,
             int milliseconds)
         {
             Assert.Equal(new TimeSpan(0, hours, minutes ,seconds ,milliseconds), entry.StartTime);
             return entry;
         }
 
-        public static SubtitleEntry WithEnd(this SubtitleEntry entry, int hours, int minutes, int seconds)
+        public static SubtitleEntry HasEnd(this SubtitleEntry entry, int hours, int minutes, int seconds)
         {
             Assert.Equal(new TimeSpan(hours, minutes, seconds), entry.EndTime);
             return entry;
         }
 
-        public static SubtitleEntry WithEnd(this SubtitleEntry entry, TimeSpan timeSpan)
+        public static SubtitleEntry HasEnd(this SubtitleEntry entry, TimeSpan timeSpan)
         {
             Assert.Equal(timeSpan, entry.EndTime);
             return entry;
         }
 
-        public static SubtitleEntry WithEnd(this SubtitleEntry entry, int hours, int minutes, int seconds,
+        public static SubtitleEntry HasEnd(this SubtitleEntry entry, int hours, int minutes, int seconds,
             int milliseconds)
         {
             Assert.Equal(new TimeSpan(0, hours, minutes ,seconds ,milliseconds), entry.EndTime);
@@ -52,7 +51,7 @@ namespace SubConvTest
             return entry;
         }
 
-        public static SubtitleEntry WithStyle(this SubtitleEntry entry, string? style)
+        public static SubtitleEntry HasStyle(this SubtitleEntry entry, string? style)
         {
             Assert.Equal(style, entry.StyleName);
             return entry;

@@ -20,8 +20,8 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke);
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 0)
-                .WithEnd(0, 1, 10)
+                .HasStart(0, 1, 0)
+                .HasEnd(0, 1, 10)
                 .HasContent("and"));
         }
 
@@ -43,8 +43,8 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke);
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 0)
-                .WithEnd(0, 1, 10)
+                .HasStart(0, 1, 0)
+                .HasEnd(0, 1, 10)
                 .HasContent("and"));
         }
 
@@ -63,15 +63,15 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke).OrderBy(e => e.StartTime);
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 1, 10)
                     .HasContent("and")
-                    .WithStyle("karaoke"),
+                    .HasStyle("karaoke"),
                 e => e
-                    .WithStart(0, 1, 1)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 1)
+                    .HasEnd(0, 1, 10)
                     .HasContent("now")
-                    .WithStyle("song"));
+                    .HasStyle("song"));
         }
 
         [Fact]
@@ -86,8 +86,8 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke);
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 0)
-                .WithEnd(0, 1, 10)
+                .HasStart(0, 1, 0)
+                .HasEnd(0, 1, 10)
                 .HasContent("a b"));
         }
 
@@ -114,8 +114,8 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke).ToList();
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 0)
-                .WithEnd(0, 1, 10)
+                .HasStart(0, 1, 0)
+                .HasEnd(0, 1, 10)
                 .HasContent("and"));
         }
 
@@ -136,8 +136,8 @@ namespace SubConvTest.Transform
             var result = sut.Transform(karaoke);
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 10)
-                .WithEnd(0, 1, 20)
+                .HasStart(0, 1, 10)
+                .HasEnd(0, 1, 20)
                 .HasContent("abc."));
         }
 
@@ -158,25 +158,25 @@ namespace SubConvTest.Transform
                 .ThenBy(e => e.StartTime);
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 1, 10)
                     .HasContent("and")
-                    .WithStyle("karaoke"),
+                    .HasStyle("karaoke"),
                 e => e
-                    .WithStart(0, 1, 1)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 1)
+                    .HasEnd(0, 1, 10)
                     .HasContent("n")
-                    .WithStyle("song"),
+                    .HasStyle("song"),
                 e => e
-                    .WithStart(0, 1, 4)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 4)
+                    .HasEnd(0, 1, 10)
                     .HasContent("o")
-                    .WithStyle("song"),
+                    .HasStyle("song"),
                 e => e
-                    .WithStart(0, 1, 7)
-                    .WithEnd(0, 1, 10)
+                    .HasStart(0, 1, 7)
+                    .HasEnd(0, 1, 10)
                     .HasContent("w")
-                    .WithStyle("song"));
+                    .HasStyle("song"));
         }
     }
 }

@@ -20,10 +20,10 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
-                .WithStart(2, 10, 12)
-                .WithEnd(2, 10, 15)
-                .WithContent("Entry")
-                .WithStyle("Default"));
+                .HasStart(2, 10, 12)
+                .HasEnd(2, 10, 15)
+                .HasContent("Entry")
+                .HasStyle("Default"));
         }
 
         [Fact]
@@ -45,10 +45,10 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
-                .WithStart(2, 10, 12)
-                .WithEnd(2, 10, 15)
-                .WithContent("{[Entry]}")
-                .WithStyle("Default"));
+                .HasStart(2, 10, 12)
+                .HasEnd(2, 10, 15)
+                .HasContent("{[Entry]}")
+                .HasStyle("Default"));
         }
     }
 }

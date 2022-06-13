@@ -19,10 +19,10 @@ Dialogue: 0,0:11:52.90,0:11:57.10,Colon,,0000,0000,0000,,String with : should pa
                 var result = AssReader.Read(sr);
 
                 Assert.Collection(result, e => e
-                    .WithStart(0, 11, 52, 900)
-                    .WithEnd(0, 11, 57, 100)
-                    .WithContent("String with : should pass.")
-                    .WithStyle("Colon"));
+                    .HasStart(0, 11, 52, 900)
+                    .HasEnd(0, 11, 57, 100)
+                    .HasContent("String with : should pass.")
+                    .HasStyle("Colon"));
             });
         }
 
@@ -38,10 +38,10 @@ Dialogue: 0,0:11:52.90,0:11:57.10,Comma,,0000,0000,0000,,String with , should pa
                 var result = AssReader.Read(sr);
 
                 Assert.Collection(result, e => e
-                    .WithStart(0, 11, 52, 900)
-                    .WithEnd(0, 11, 57, 100)
-                    .WithContent("String with , should pass.")
-                    .WithStyle("Comma"));
+                    .HasStart(0, 11, 52, 900)
+                    .HasEnd(0, 11, 57, 100)
+                    .HasContent("String with , should pass.")
+                    .HasStyle("Comma"));
 
             });
         }
@@ -58,10 +58,10 @@ Dialogue: 0,0:00:01.18,0:00:06.85,DefaultVCD, NTP,0000,0000,0000,,{\pos(400,570)
                 var result = AssReader.Read(sr);
 
                 Assert.Collection(result, e => e
-                    .WithStart(0, 0, 1, 180)
-                    .WithEnd(0, 0, 6, 850)
-                    .WithContent("Like an Angel with pity on nobody\nThe second line in subtitle".EnvNewLine())
-                    .WithStyle("DefaultVCD"));
+                    .HasStart(0, 0, 1, 180)
+                    .HasEnd(0, 0, 6, 850)
+                    .HasContent("Like an Angel with pity on nobody\nThe second line in subtitle".EnvNewLine())
+                    .HasStyle("DefaultVCD"));
             });
         }
 
@@ -82,20 +82,20 @@ Dialogue: 0,0:12:00.30,0:12:01.97,Speech,,0000,0000,0000,,defeat the Empire.\NTh
                 var result = AssReader.Read(sr);
 
                 Assert.Collection(result, e => e
-                        .WithStart(0, 11, 52, 900)
-                        .WithEnd(0, 11, 57, 100)
-                        .WithContent("We should ask Yang Wenli to rush\nback to Iserlohn Fortress.".EnvNewLine())
-                        .WithStyle("Speech"),
+                        .HasStart(0, 11, 52, 900)
+                        .HasEnd(0, 11, 57, 100)
+                        .HasContent("We should ask Yang Wenli to rush\nback to Iserlohn Fortress.".EnvNewLine())
+                        .HasStyle("Speech"),
                     e => e
-                        .WithStart(0, 11, 57, 570)
-                        .WithEnd(0, 11, 59, 930)
-                        .WithContent("No, we should beg him to go back\nto Iserlohn Fortress to".EnvNewLine())
-                        .WithStyle("Speech"),
+                        .HasStart(0, 11, 57, 570)
+                        .HasEnd(0, 11, 59, 930)
+                        .HasContent("No, we should beg him to go back\nto Iserlohn Fortress to".EnvNewLine())
+                        .HasStyle("Speech"),
                     e => e
-                        .WithStart(0, 12, 00, 300)
-                        .WithEnd(0, 12, 01, 970)
-                        .WithContent("defeat the Empire.\nThis is too embarrassing.".EnvNewLine())
-                        .WithStyle("Speech"));
+                        .HasStart(0, 12, 00, 300)
+                        .HasEnd(0, 12, 01, 970)
+                        .HasContent("defeat the Empire.\nThis is too embarrassing.".EnvNewLine())
+                        .HasStyle("Speech"));
             });
         }
 
@@ -111,8 +111,8 @@ Dialogue: 2,0:04:49.79,0:04:57.65,Jibun Wo,,0,0,0,fx,{\fad(0,0)\shad0\bord3\an5\
                     var result = AssReader.Read(sr);
 
                     Assert.Collection(result, e => e
-                        .WithStart(0, 4, 49, 790)
-                        .WithEnd(0, 4, 57, 650)
+                        .HasStart(0, 4, 49, 790)
+                        .HasEnd(0, 4, 57, 650)
                         .HasContent("Text")
                         .HasPosition(322.5M, 57)
                     );

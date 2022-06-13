@@ -16,9 +16,9 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry));
 
             Assert.Collection(result, e => e
-                .WithStart(TimeSpan.MinValue)
-                .WithEnd(TimeSpan.MaxValue)
-                .WithContent("Content")
+                .HasStart(TimeSpan.MinValue)
+                .HasEnd(TimeSpan.MaxValue)
+                .HasContent("Content")
             );
         }
 
@@ -38,17 +38,17 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 4, 0)
-                    .WithContent("Entry1"),
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 4, 0)
+                    .HasContent("Entry1"),
                 e => e
-                    .WithStart(0, 4, 0)
-                    .WithEnd(0, 5, 0)
-                    .WithContent("Entry1\nEntry2".EnvNewLine()),
+                    .HasStart(0, 4, 0)
+                    .HasEnd(0, 5, 0)
+                    .HasContent("Entry1\nEntry2".EnvNewLine()),
                 e => e
-                    .WithStart(0, 5, 0)
-                    .WithEnd(0, 7, 0)
-                    .WithContent("Entry2"));
+                    .HasStart(0, 5, 0)
+                    .HasEnd(0, 7, 0)
+                    .HasContent("Entry2"));
         }
 
         [Fact]
@@ -67,13 +67,13 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 3, 0)
-                    .WithContent("Entry1"),
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 3, 0)
+                    .HasContent("Entry1"),
                 e => e
-                    .WithStart(0, 4, 0)
-                    .WithEnd(0, 7, 0)
-                    .WithContent("Entry2"));
+                    .HasStart(0, 4, 0)
+                    .HasEnd(0, 7, 0)
+                    .HasContent("Entry2"));
         }
 
         [Fact]
@@ -92,13 +92,13 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 4, 0)
-                    .WithContent("Entry1"),
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 4, 0)
+                    .HasContent("Entry1"),
                 e => e
-                    .WithStart(0, 4, 0)
-                    .WithEnd(0, 7, 0)
-                    .WithContent("Entry2"));
+                    .HasStart(0, 4, 0)
+                    .HasEnd(0, 7, 0)
+                    .HasContent("Entry2"));
         }
 
         [Fact]
@@ -117,9 +117,9 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
-                .WithStart(0, 1, 0)
-                .WithEnd(0, 4, 0)
-                .WithContent("Entry1\nEntry2".EnvNewLine()));
+                .HasStart(0, 1, 0)
+                .HasEnd(0, 4, 0)
+                .HasContent("Entry1\nEntry2".EnvNewLine()));
         }
 
         [Fact]
@@ -138,17 +138,17 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry2, entry1));
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 4, 0)
-                    .WithContent("Entry1"),
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 4, 0)
+                    .HasContent("Entry1"),
                 e => e
-                    .WithStart(0, 4, 0)
-                    .WithEnd(0, 5, 0)
-                    .WithContent("Entry1\nEntry2".EnvNewLine()),
+                    .HasStart(0, 4, 0)
+                    .HasEnd(0, 5, 0)
+                    .HasContent("Entry1\nEntry2".EnvNewLine()),
                 e => e
-                    .WithStart(0, 5, 0)
-                    .WithEnd(0, 7, 0)
-                    .WithContent("Entry2"));
+                    .HasStart(0, 5, 0)
+                    .HasEnd(0, 7, 0)
+                    .HasContent("Entry2"));
         }
 
         [Fact]
@@ -169,13 +169,13 @@ namespace SubConvTest.Transform
             var result = sut.Transform(ToEnumerable(entry1, entry2));
 
             Assert.Collection(result, e => e
-                    .WithStart(0, 1, 0)
-                    .WithEnd(0, 4, 0)
-                    .WithContent("Title Entry"),
+                    .HasStart(0, 1, 0)
+                    .HasEnd(0, 4, 0)
+                    .HasContent("[Title Entry]"),
                 e => e
-                    .WithStart(0, 4, 0)
-                    .WithEnd(0, 7, 0)
-                    .WithContent("Entry2\nTitle Entry".EnvNewLine()));
+                    .HasStart(0, 4, 0)
+                    .HasEnd(0, 7, 0)
+                    .HasContent("Entry2\n[Title Entry]".EnvNewLine()));
         }
 
         [Fact]
