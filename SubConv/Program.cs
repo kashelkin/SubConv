@@ -7,6 +7,9 @@ using System.IO;
 using System.Text;
 
 var transformBuilder = new TransformBuilder();
+transformBuilder.RegisterFor("c",
+    o => o.Count == 0,
+    _ => new ContentCleanupTransform());
 transformBuilder.RegisterFor("k",
     o => o.Count == 0,
     _ => new KaraokeTransform());
