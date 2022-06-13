@@ -11,8 +11,8 @@ transformBuilder.RegisterFor("k",
     o => o.Count == 0,
     _ => new KaraokeTransform());
 transformBuilder.RegisterFor("k",
-    o => o.Count > 0,
-    o => new KaraokeTransform(o));
+    o => o.Count == 1,
+    o => new KaraokeTransform(o[0]));
 transformBuilder.RegisterFor("m",
     o=> o.Count == 0,
     _ => new SortAndMergeTransform());

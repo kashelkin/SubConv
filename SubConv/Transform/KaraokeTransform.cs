@@ -14,9 +14,11 @@ public class KaraokeTransform : ISubtitleTransform
     public KaraokeTransform()
     {}
 
-    public KaraokeTransform(IReadOnlyList<string> styles)
+    public KaraokeTransform(string styles)
     {
-        _styles = styles;
+        if (styles == null) throw new ArgumentNullException(nameof(styles));
+
+        _styles = styles.Split(',');
     }
 
     public IEnumerable<SubtitleEntry> Transform(IEnumerable<SubtitleEntry> entries)
