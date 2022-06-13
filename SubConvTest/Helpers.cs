@@ -1,5 +1,6 @@
 ﻿using SubConv.Data;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Xunit;
 
@@ -60,12 +61,15 @@ namespace SubConvTest
         public static SubtitleEntry HasPosition(this SubtitleEntry entry, decimal x, decimal y)
         {
             Assert.NotNull(entry.Position);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                               // We have NotNull assertion before this code.
             Assert.Equal(x, entry.Position.X);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             Assert.Equal(y, entry.Position.Y);
             return entry;
         }
 
-        public static string EnvNewLine(this string it) => it.Replace("\n", Environment.NewLine);
+        public static string EnvNewLine(this string it) => it.Replace("\n", Environment.NewLine, StringComparison.InvariantCulture);
 
         public static string? FixSlash(this string? it) => it?.Replace('\\', Path.DirectorySeparatorChar);
     }

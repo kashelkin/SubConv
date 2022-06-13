@@ -11,6 +11,8 @@ namespace SubConv.Transform
 
         public WrapContentTransform(string styles, string start, string end)
         {
+            if (styles == null) throw new ArgumentNullException(nameof(styles));
+
             _styles = styles.Split(',')
                 .ToDictionary(x => x, x => 0);
 

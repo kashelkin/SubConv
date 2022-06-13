@@ -8,6 +8,8 @@ namespace SubConv.Providers.Ass
     {
         public static IEnumerable<SubtitleEntry> Read(TextReader reader)
         {
+            if (reader == null) throw new ArgumentNullException(nameof(reader));
+
             while (reader.ReadLine() is { } line && !line.StartsWith("[Events]", StringComparison.Ordinal))
             { }
 

@@ -1,6 +1,10 @@
-﻿namespace SubConv;
+﻿using System.Diagnostics.CodeAnalysis;
 
-public class TransformOptions
+namespace SubConv;
+
+[SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes",
+    Justification = "TransformOptions is instantiated by CommandLineParser")]
+internal class TransformOptions
 {
     public string Name { get; }
     public IReadOnlyList<string> Params { get; }

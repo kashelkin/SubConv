@@ -9,6 +9,8 @@ namespace SubConv.Providers.Srt
     {
         public static void Write(TextWriter writer, IEnumerable<SubtitleEntry> entries)
         {
+            if (writer == null) throw new ArgumentNullException(nameof(writer));
+
             foreach (var entry in entries.OrderBy(e => e.StartTime).Select((e, i) => new {Entry = e, Number = i + 1}))
             {
                 if (entry.Number > 1)

@@ -7,6 +7,8 @@
     <Nullable>enable</Nullable>
 	<EnableNETAnalyzers>True</EnableNETAnalyzers>
 	<AnalysisMode>All</AnalysisMode>
+	<AnalysisLevel>latest</AnalysisLevel>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 	<AssemblyName>$(MSBuildProjectName.ToLower())</AssemblyName>
 	<NoWin32Manifest>true</NoWin32Manifest>
@@ -19,10 +21,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

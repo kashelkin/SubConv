@@ -181,7 +181,7 @@ namespace SubConvTest.Transform
         [Fact]
         public void Zero_Entries()
         {
-            var result = new SortAndMergeTransform().Transform(new SubtitleEntry[] { });
+            var result = new SortAndMergeTransform().Transform(Array.Empty<SubtitleEntry>());
 
             Assert.Empty(result);
         }

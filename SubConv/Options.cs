@@ -1,8 +1,11 @@
-﻿using CommandLine;
+﻿using System.Diagnostics.CodeAnalysis;
+using CommandLine;
 
 namespace SubConv
 {
-    public class Options
+    [SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes",
+        Justification = "Options is instantiated by CommandLineParser")]
+    internal class Options
     {
         [Value(0, Required = true, MetaName = "InputPath", HelpText = "Input path")]
         public string InputPath { get; }
@@ -17,7 +20,7 @@ namespace SubConv
         {
             InputPath = inputPath;
             OutputPath = outputPath;
-            Transforms = transforms ?? Array.Empty<TransformOptions>();
+            Transforms = transforms;
         }
     }
 }
