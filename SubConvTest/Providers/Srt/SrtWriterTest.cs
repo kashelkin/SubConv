@@ -15,7 +15,7 @@ public class SrtWriterTest
         var entry = new SubtitleEntry(
             new TimeSpan(2, 10, 12),
             new TimeSpan(2, 10, 15),
-            "Line1\n\nLine2\n\n\nLine3\nLine4".EnvNewLine(),
+            "\nLine1\n\nLine2\n\n\nLine3\nLine4".EnvNewLine(),
             "Default");
 
         var result = ReadStream(sw => SrtWriter.Write(sw, ToEnumerable(entry)));

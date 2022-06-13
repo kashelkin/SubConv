@@ -42,6 +42,6 @@ public static class SrtWriter
 
     private static string RemoveEmptyLines(string value) =>
         Regex.Replace(value,
-            "(" + Regex.Escape(Environment.NewLine) + ")" + "{2,}",
-            Environment.NewLine);
+            $"^{Regex.Escape(Environment.NewLine)}",
+            "", RegexOptions.Multiline);
 }
