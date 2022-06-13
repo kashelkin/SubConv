@@ -1,10 +1,9 @@
 ﻿using SubConv.Data;
 using System.Collections.Generic;
 
-namespace SubConv.Transform
+namespace SubConv.Transform;
+
+public interface ISubtitleTransform
 {
-    public interface ISubtitleTransform
-    {
-        IEnumerable<SubtitleEntry> Transform(IEnumerable<SubtitleEntry> entries);
-    }
+    IEnumerable<SubtitleEntry> Transform(IEnumerable<SubtitleEntry> entries);
 }
