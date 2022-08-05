@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Self Build - Publish (main only)
+      shell: bash
+      run: |
+        dotnet tool install --global dotnet-releaser
+        dotnet-releaser run --github-token "${{secrets.GITHUB_TOKEN}}" dotnet-releaser.toml
