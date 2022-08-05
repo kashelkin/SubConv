@@ -12,6 +12,8 @@
 	<AssemblyName>$(MSBuildProjectName.ToLower())</AssemblyName>
 	<NoWin32Manifest>true</NoWin32Manifest>
 	<Authors>kashelkin</Authors>
+	<PackageLicenseExpression>mit</PackageLicenseExpression>
+	<Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
