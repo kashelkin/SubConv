@@ -9,31 +9,39 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-var transformBuilder = new TransformBuilder();
-transformBuilder.RegisterFor("c",
-    o => o.Count == 0,
-    _ => new ContentCleanupTransform());
-transformBuilder.RegisterFor("k",
-    o => o.Count == 0,
-    _ => new KaraokeTransform());
-transformBuilder.RegisterFor("k",
-    o => o.Count == 1,
-    o => new KaraokeTransform(o[0]));
-transformBuilder.RegisterFor("m",
-    o=> o.Count == 0,
-    _ => new SortAndMergeTransform());
-transformBuilder.RegisterFor("m",
-    o => o.Count > 0,
-    o => new SortAndMergeTransform(new StyleSubtitleComparer(o)));
-transformBuilder.RegisterFor("w",
-    o => o.Count == 3,
-    o => new WrapContentTransform(o[0], o[1], o[2]));
+var transformBuilder = GetTransformBuilder();
 
 using var parser = new Parser(with => with.HelpWriter = null);
 var parserResult = parser.ParseArguments<Options>(args);
 parserResult
-    .WithParsed(options => Convert(options.InputPath, options.OutputPath, transformBuilder.Build(options.Transforms)))
+    .WithParsed(o => Convert(o.InputPath, o.OutputPath, transformBuilder.Build(o.Transforms)))
     .WithNotParsed(errs => Console.WriteLine(GetHelpText(parserResult, errs)));
+
+
+TransformBuilder GetTransformBuilder()
+{
+    var transformBuilder = new TransformBuilder();
+    transformBuilder.RegisterFor("c",
+        o => o.Count == 0,
+        _ => new ContentCleanupTransform());
+    transformBuilder.RegisterFor("k",
+        o => o.Count == 0,
+        _ => new KaraokeTransform());
+    transformBuilder.RegisterFor("k",
+        o => o.Count == 1,
+        o => new KaraokeTransform(o[0]));
+    transformBuilder.RegisterFor("m",
+        o=> o.Count == 0,
+        _ => new SortAndMergeTransform());
+    transformBuilder.RegisterFor("m",
+        o => o.Count > 0,
+        o => new SortAndMergeTransform(new StyleSubtitleComparer(o)));
+    transformBuilder.RegisterFor("w",
+        o => o.Count == 3,
+        o => new WrapContentTransform(o[0], o[1], o[2]));
+
+    return transformBuilder;
+}
 
 void Convert(string inputPath, string? outputPath, ISubtitleTransform transform)
 {
