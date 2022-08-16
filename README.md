@@ -47,7 +47,7 @@ subconv movie.ass -t w:Eng,Roma;{;} w:Stock;[;] m:Default,Default-alt;Eng;Roma;S
 After -t option goes list of subtitle transforms:
 - `w:Eng,Roma;{;}` - wrap styles `Eng` and `Roma` in `{ }`
 - `w:Stock;[;]` - wrap style `Stock` in `[ ]`
-- `m:Default,Default-alt;Eng;Roma;Stock` - merge overlapping subtitles with vertical layout: `Default`, `Default-alt` / `Eng` / `Roma` / `Stock`. `Default`, `Default-alt` can be replaced with `*` which means 'all other styles': `m:*;Eng;Roma;Stock`.
+- `m:Default,Default-alt;Eng;Roma;Stock` - merge overlapping subtitles with vertical layout: `Default`, `Default-alt` / `Eng` / `Roma` / `Stock`. `Default,Default-alt` can be replaced with `*` which means 'all other styles': `m:*;Eng;Roma;Stock`.
 
 It will generate `movie.srt` file:
 ```
