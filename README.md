@@ -2,7 +2,7 @@
 **Subconv** is **ASS** to **SRT** subtitle format converter that merges overlapping subtitles.
 
 # Installation
-You can download the latest version from the [releases page](https://github.com/kashelkin/SubConv/releases)
+You can download the latest version from the [releases page](https://github.com/kashelkin/SubConv/releases).
 # Usage
 ## Quick start
 Let's say we have the following subtitle file `movie.ass`:
